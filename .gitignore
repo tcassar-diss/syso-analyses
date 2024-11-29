@@ -1,5 +1,6 @@
 syscalls.csv
 venv
+stats
 
 *.bundle.*
 lib/
