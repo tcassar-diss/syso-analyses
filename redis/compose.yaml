@@ -1,18 +1,25 @@
 services:
-  redis-container:
+  redis-server:
     build: .
     container_name: redis_server
     volumes:
       - ./stats:/app/stats
     ports:
       - "6379:6379"
+    privileged: true 
+    pid: host
+  redis-benchmark:
+    image: redis
     cap_add:
       - CAP_SYS_PTRACE
       - CAP_SYS_ADMIN
-    pid: host
-    entrypoint: ["/app/bin/syso", "redis-server", "--protected-mode", "no"]
-  redis-benchmark:
-    image: redis
     container_name: redis_benchmark
-    entrypoint: ["sh", "-c", "until redis-cli -h redis_server ping; do sleep 1; done; redis-benchmark -h redis_server"]
+    entrypoint:
+      - "sh"
+      - "-c"
+      - |
+        until redis-cli -h redis_server ping; do
+          sleep 1;
+        done;
+        redis-benchmark -h redis_server
 
