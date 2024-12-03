@@ -1,0 +1,16 @@
+services:
+  syso-nginx:
+    build: .
+    container_name: syso_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./stats:/app/stats"
+    privileged: true
+    pid: host
+
+  wrk:
+    image: williamyeh/wrk:latest
+    container_name: wrk_benchmark
+    entrypoint: sh -c "sleep 3 && wrk -t4 -c100 -d30s http://syso-nginx:80/"
+
