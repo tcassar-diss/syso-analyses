@@ -1,6 +1,7 @@
 syscalls.csv
 venv
-stats
+stats*
+*.rdb
 
 *.bundle.*
 lib/
