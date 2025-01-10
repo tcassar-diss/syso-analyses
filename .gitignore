@@ -2,6 +2,7 @@ syscalls.csv
 venv
 stats*
 *.rdb
+*.pmap
 
 *.bundle.*
 lib/
